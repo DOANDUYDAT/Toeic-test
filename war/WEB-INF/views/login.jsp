@@ -48,15 +48,15 @@ body, html {
 }
 /* login */
 .login {
-	padding-top: 8rem;
-	padding-bottom: 2rem;
+	padding-top: 5rem;
+	padding-bottom: 1.5rem;
 }
 
 .login-box {
 	margin: auto;
 	background-color: white;
 	height: auto;
-	padding: 2rem 0 0 0;
+	padding: 1.5rem 0 0 0;
 }
 
 .login-header {
@@ -87,7 +87,7 @@ body, html {
 }
 
 .login-content button {
-	margin-top: 2rem;
+	margin-top: 1.5rem;
 	width: 100%;
 }
 
@@ -95,19 +95,19 @@ body, html {
 	width: 100%;
 	background-color: #e9ecef;
 	text-align: center;
-	padding: 2rem 0;
+	padding: 1.5rem 0;
 }
 
 .login-box-bottom button {
 	background: white;
-	padding: 0.5rem 1.2rem;
+	padding: 0.4rem 1.2rem;
 	margin-top: 1.2rem;
 	border: none;
 }
 .forgot-password {
 	text-align: center;
-	padding-top: 0.8rem;
-	padding-bottom: 1.5rem;
+	padding-top: 0.6rem;
+	padding-bottom: 1.2rem;
 }
 
 /* Style for checkbox */
@@ -168,9 +168,9 @@ body, html {
 /* Style the checkmark/indicator */
 .remember-account .checkmark:after {
   left: 9px;
-  top: 5px;
-  width: 5px;
-  height: 10px;
+  top: 3px;
+  width: 8px;
+  height: 15px;
   border: solid white;
   border-width: 0 3px 3px 0;
   -webkit-transform: rotate(45deg);
@@ -187,7 +187,7 @@ body, html {
 		<!-- Login -->
 		<div class="container login">
 
-			<div class="col-md-8 login-box">
+			<div class=" col-10 col-md-8 col-lg-5 login-box">
 				<div class="login-header">
 					<h2>Log In</h2>
 					<p class="text-muted">Become a part of our community!</p>

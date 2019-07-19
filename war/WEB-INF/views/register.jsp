@@ -48,15 +48,15 @@ body, html {
 }
 /* Register */
 .register {
-	padding-top: 8rem;
-	padding-bottom: 2rem;
+	padding-top: 5rem;
+	padding-bottom: 1.5rem;
 }
 
 .register-box {
 	margin: auto;
 	background-color: white;
 	height: auto;
-	padding: 2rem 0 0 0;
+	padding: 1.5rem 0 0 0;
 }
 
 .register-header {
@@ -66,7 +66,7 @@ body, html {
 .register-content {
 	margin-left: 6rem;
 	margin-right: 6rem;
-	padding: 2rem 0;
+	padding: 1.5rem 0;
 }
 
 .register-content input {
@@ -85,7 +85,7 @@ body, html {
 }
 
 .register-content button {
-	margin-top: 2rem;
+	margin-top: 1.5rem;
 	width: 100%;
 }
 
@@ -93,12 +93,12 @@ body, html {
 	width: 100%;
 	background-color: #e9ecef;
 	text-align: center;
-	padding: 2rem 0;
+	padding: 1.5rem 0;
 }
 
 .register-box-bottom button {
 	background: white;
-	padding: 0.5rem 1.2rem;
+	padding: 0.4rem 1.2rem;
 	margin: 0 1.2rem;
 	border: none;
 }
@@ -111,7 +111,7 @@ body, html {
 		<!-- Register -->
 		<div class="container register">
 
-			<div class="col-md-8 register-box">
+			<div class="col-10 col-md-8 col-lg-5 register-box">
 				<div class="register-header">
 					<h2>Create An Account</h2>
 					<p class="text-muted">Welcome! Register for an account</p>
