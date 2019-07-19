@@ -1,0 +1,36 @@
+/* Header */
+.navbar-nav {
+	width: 100%;
+}
+
+.nav-link {
+	color: grey;
+}
+
+.active-link {
+	color: #87BE49;
+	border-bottom: 3px #87BE49 solid;
+}
+
+.nav-link:hover {
+	color: #87BE49;
+	border-bottom: 3px #87BE49 solid;
+}
+
+@media screen and (max-width: 576px) {
+	.logo {
+		display: none;
+	}
+}
+
+@media screen and (min-width: 576px) {
+	.logo {
+		display: none;
+	}
+}
+
+@media screen and (min-width: 768px) {
+	.logo {
+		display: inline-block;
+	}
+}

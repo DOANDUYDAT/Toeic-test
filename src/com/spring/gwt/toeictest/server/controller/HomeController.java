@@ -17,7 +17,19 @@ public class HomeController {
 	public String homePage(Model model, HttpServletRequest request, HttpServletResponse response) {
 		return "home";
 	}
+	
+//	PAGE LOGIN
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String loginPage(Model model, HttpServletRequest request, HttpServletResponse response) {
+		return "login";
+	}
 
+//	PAGE REGISTER
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public String registerPage(Model model, HttpServletRequest request, HttpServletResponse response) {
+		return "register";
+	}	
+	
 //	API
 	@RequestMapping(value = "/get-string", method = RequestMethod.GET)
 	public @ResponseBody String getString(Model model, HttpServletRequest request, HttpServletResponse response) {
