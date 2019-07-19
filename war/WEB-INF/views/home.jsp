@@ -127,7 +127,7 @@ footer {
 </style>
 </head>
 <body>
-	<header class="fixed-top bg-light" style="height: auto;"> <!-- Tách các phần header, footer, ranking ra thành các view riêng biệt  -->
+	<header class="fixed-top bg-light" style="height: auto;"> <!-- Tách các phần header, footer, ranking ra thành các view riêng biệt  xxx -->
 		<nav class="navbar navbar-expand-md shadow">
 			<div class="container">
 				<!-- <div class="row justify-content-md-between" style="width: 100%;"> -->
