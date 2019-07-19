@@ -356,6 +356,7 @@ footer {
 				<div class="col-sm-4">
 					<a class="text-uppercase text-success">LIÊN KẾT</a>
 				</div>
+				<h2>adasd</h2>
 			</div>
 		</div>
 	</footer>
