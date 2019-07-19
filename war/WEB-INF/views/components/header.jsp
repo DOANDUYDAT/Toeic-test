@@ -12,9 +12,9 @@
 			</a>
 
 			<div
-				class="d-flex col-md-9 flex-md-row-reverse justify-content-between justify-content-md-end"
+				class="d-md-flex col-md-9 flex-md-row-reverse justify-content-md-end"
 				style="padding: 0;">
-
+				<div class="d-flex justify-content-between">
 				<!-- Dropdown -->
 				<div class="dropdown">
 					<a class="dropdown-toggle" href="#" data-toggle="dropdown"> <img
@@ -30,13 +30,13 @@
 
 				<!-- Toggler/collapsibe Button -->
 				<button class="navbar-toggler navbar-light" type="button"
-					data-toggle="collapse" data-target="#collapsibleNavbar">
+					data-toggle="collapse" data-target="#collapsibleNavbar" style="padding:0;">
 					<span class="navbar-toggler-icon"></span>
 				</button>
-
+				</div>
 				<!-- Navbar links -->
 				<div class="collapse navbar-collapse" id="collapsibleNavbar">
-					<ul class="navbar-nav d-flex justify-content-around">
+					<ul class="navbar-nav d-md-flex justify-content-md-around align-items-center">
 						<li class="nav-item"><a class="nav-link text-uppercase"
 							href="#">LUYỆN ĐỀ</a></li>
 						<li class="nav-item"><a class="nav-link text-uppercase"
