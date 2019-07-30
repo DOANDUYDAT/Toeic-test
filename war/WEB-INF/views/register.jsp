@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" session="false"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -115,29 +115,34 @@ body, html {
 				<div class="register-header">
 					<h2>Create An Account</h2>
 					<p class="text-muted">Welcome! Register for an account</p>
+					<p class="text-danger">${message}</p>
 				</div>
-				<form class="register-content">
-					<label for="username">Your username</label>
+				<form:form class="register-content" action="/registerProcess" method="POST" modelAttribute="user">
+					<form:label path="name">Your username</form:label>
 					<br> 
-					<input type="text" name="username" id="username" /> 
+					<form:input path="name" pattern="[A-Za-z]{3,}" title="At least letter country code"/> 
 					<br> 
 					<br>
-					<label for="email">Your email</label> 
+					<form:label path="email">Your email</form:label> 
 					<br> 
-					<input type="email" name="email" id="email" /> 
+					<form:input path="email" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="characters@characters.domain 
+					(characters followed by an @ sign, followed by more characters, and then a '.'
+					After the '.' sign, add at least 2 letters from a to z:"/> 
 					<br>
 					<br> 
-					<label for="password">Password</label>
+					<form:label path="password" >Password</form:label>
 					<br> 
-					<input type="password" name="password" id="password" />
+					<form:input path="password" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at 
+					least one number and one uppercase and lowercase letter, and at least 8 or more characters" />
 					<br>
 					<br> 
-					<label for="confirm-password">Confirm Password</label> 
+					<form:label path="verifyPassword" >Confirm Password</form:label> 
 					<br>
-					<input type="password" name="confirm-password" id="confirm-password" /> 
+					<form:input path="verifyPassword" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at 
+					least one number and one uppercase and lowercase letter, and at least 8 or more characters" /> 
 					<br>
-					<button class="btn btn-primary">REGISTER</button>
-				</form>
+					<form:button class="btn btn-primary">REGISTER</form:button>
+				</form:form>
 				<div class="register-box-bottom">
 					<span class="text-muted">Already a member?</span>
 					<button>SIGN IN</button>
