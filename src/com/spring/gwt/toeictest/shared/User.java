@@ -1,12 +1,19 @@
 package com.spring.gwt.toeictest.shared;
 
+import java.io.Serializable;
+import java.util.List;
+
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 
 @Entity
-public class User {
+public class User implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	private Long id;
 	private String name;
@@ -16,7 +23,7 @@ public class User {
 	private String password;
 	@Index
 	private String verifyPassword;
-
+	private List<String> roles;
 	public User() {
 
 	};
@@ -59,6 +66,14 @@ public class User {
 
 	public void setVerifyPassword(String verifyPassword) {
 		this.verifyPassword = verifyPassword;
+	}
+
+	public List<String> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<String> roles) {
+		this.roles = roles;
 	}
 
 

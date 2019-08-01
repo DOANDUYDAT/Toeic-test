@@ -3,6 +3,8 @@ package com.spring.gwt.toeictest.server.controller;
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -12,9 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.spring.gwt.toeictest.server.Key;
 import com.spring.gwt.toeictest.server.dao.SHA512Hasher;
 import com.spring.gwt.toeictest.server.dao.UserDaoImpl;
+import com.spring.gwt.toeictest.server.security.SecurityConfig;
+import com.spring.gwt.toeictest.shared.Key;
 import com.spring.gwt.toeictest.shared.User;
 
 @Controller
@@ -44,6 +47,9 @@ public class RegisterController {
 			newuser.setName(user.getName());
 			newuser.setEmail(user.getEmail());
 			newuser.setPassword(hash);
+			List<String> roles = new ArrayList<String>();
+			roles.add(SecurityConfig.ROLE_USER);
+			newuser.setRoles(roles);
 			
 			ofy().save().entity(newuser).now();
 			

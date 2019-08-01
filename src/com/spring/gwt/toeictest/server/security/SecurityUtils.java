@@ -1,11 +1,9 @@
-package com.spring.gwt.toeictest.server;
+package com.spring.gwt.toeictest.server.security;
 
 import java.util.List;
 import java.util.Set;
  
 import javax.servlet.http.HttpServletRequest;
- 
-import com.spring.gwt.toeictest.server.SecurityConfig;
  
 public class SecurityUtils {
  
