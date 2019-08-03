@@ -23,10 +23,7 @@ public class AppUtils {
         // Trên JSP có thể truy cập thông qua ${loginedUser}
         session.setAttribute("loginedUser", loginedUser);
     }
-    // Lấy thông tin người dùng lưu trữ trong Cookie
-    public static void getLoginedUserInCookie(Cookie cookie) {
-        
-    }
+   
 //    public static String readCookie(String key, HttpServletRequest request) {
 //	    Cookie[] cookies = request.getCookies();
 //	    for (Cookie cookie: cookies) {

@@ -4,6 +4,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import com.spring.gwt.toeictest.shared.User;
+import com.spring.gwt.toeictest.shared.UserAuthToken;
 import com.googlecode.objectify.ObjectifyService;
 
 
@@ -13,6 +14,7 @@ public class MyContextListener implements ServletContextListener {
 		System.out.println("contextInitialized");
 		
 		ObjectifyService.register(User.class);
+		ObjectifyService.register(UserAuthToken.class);
 		// etc...
 	}
 

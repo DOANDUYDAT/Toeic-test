@@ -28,13 +28,6 @@ public class User implements Serializable {
 
 	};
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getName() {
 		return name;
@@ -75,6 +68,19 @@ public class User implements Serializable {
 	public void setRoles(List<String> roles) {
 		this.roles = roles;
 	}
+
+
+	public Long getId() {
+		return id;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
+	
 
 
 }

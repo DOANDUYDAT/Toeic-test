@@ -11,7 +11,7 @@ import java.security.NoSuchAlgorithmException;
  */
 public class SHA512Hasher {
 
-  public String hash(String passwordToHash, byte[] salt){
+  public static String hash(String passwordToHash, byte[] salt){
     String generatedPassword = null;
     try {
       MessageDigest md = MessageDigest.getInstance("SHA-512");
@@ -29,7 +29,7 @@ public class SHA512Hasher {
     return generatedPassword;
   }
 
-  public boolean checkPassword(String hash, String attempt, byte[] salt){
+  public static boolean checkPassword(String hash, String attempt, byte[] salt){
     String generatedHash = hash(attempt, salt);
     return hash.equals(generatedHash);
   }

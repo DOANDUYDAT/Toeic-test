@@ -1,16 +1,12 @@
 package com.spring.gwt.toeictest.server.controller;
 
-import static com.googlecode.objectify.ObjectifyService.ofy;
-
-import java.util.Optional;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,12 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.api.client.http.HttpRequest;
-import com.spring.gwt.toeictest.server.AppUtils;
 import com.spring.gwt.toeictest.server.dao.SHA512Hasher;
-import com.spring.gwt.toeictest.server.dao.UserDaoImpl;
+import com.spring.gwt.toeictest.server.dao.UserAuthDAO;
+import com.spring.gwt.toeictest.server.dao.UserDAO;
 import com.spring.gwt.toeictest.shared.Key;
 import com.spring.gwt.toeictest.shared.User;
+import com.spring.gwt.toeictest.shared.UserAuthToken;
 
 @Controller
 public class LoginController {
@@ -42,49 +38,65 @@ public class LoginController {
 	@GetMapping("/userInfo")
 	public ModelAndView loginSuccessPage(@RequestParam(name="name", required = false) String message, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("userInfo");
-//		mav.addObject("user", new User());
 		mav.addObject("message", message);
-//		mav.addObject("Cookie", Optional.of(AppUtils.readCookie("UserLogin", request)));
+
 		return mav;
 		
 	}
 	
 	@PostMapping("/loginProcess")
-	public ModelAndView loginProcess(@ModelAttribute("user") User user, BindingResult result, HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView loginProcess(@ModelAttribute("user") User userLogin, BindingResult result, HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = null;
 		if (result.hasErrors()){
 			mav = new ModelAndView("redirect:/login");
 			mav.addObject("message", result.toString());
 		}
 		
-		User userToCheck = ofy().load().type(User.class).filter("email =", user.getEmail()).first().now();
-		if (null != userToCheck) {
-			SHA512Hasher decode = new SHA512Hasher();
-			boolean check = decode.checkPassword(userToCheck.getPassword(), user.getPassword(), Key.KEY_HASH);
-			if (check) {
-				AppUtils.storeLoginedUser(request.getSession(true), userToCheck);
-				
-				mav = new ModelAndView("redirect:/userInfo");
-				mav.addObject("name", userToCheck.getName());
-				
-				Cookie  cookie = new Cookie("UserLogin", userToCheck.getEmail());
-//				Cookie  cookie = new Cookie("UserLogin", "");
-				cookie.setPath("/");
-				cookie.setHttpOnly(true);
-//				cookie.setSecure(true);
-				cookie.setMaxAge(60);
-				response.addCookie(cookie);
-				
-			} else {
-				mav = new ModelAndView("redirect:/login");
-				mav.addObject("message", "Password is wrong!!");
-			}
-		} else {
+		System.out.println("remmeberme first: " + request.getParameter("rememberMe"));
+		boolean rememberMe = "on".equals(request.getParameter("rememberMe"));
+		System.out.println("remember me: " + rememberMe);
+		User user = UserDAO.validateUser(userLogin);
+		if (user == null) {
+			// login failed, show login form again with error messsage
 			mav = new ModelAndView("redirect:/login");
-			mav.addObject("message", "Email is wrong!!");
+			mav.addObject("message", "Invalid email or password!");
+		} else {
+			// login succeed, store customer information in the session
+	        HttpSession session = request.getSession();
+	        session.setAttribute("loggedUser", user.getId());
+	        if (rememberMe) {
+	            // create new token (selector, validator)
+	             UserAuthToken newToken = new UserAuthToken();
+	             
+	             String selector = RandomStringUtils.randomAlphanumeric(12);
+	             String rawValidator =  RandomStringUtils.randomAlphanumeric(64);
+	             
+	             String hashedValidator = SHA512Hasher.hash(rawValidator, Key.KEY_HASH);
+	             
+	             newToken.setSelector(selector);
+	             newToken.setValidator(hashedValidator);
+	              
+	             newToken.setUserId(user.getId());
+	            // save the token into the database
+	             UserAuthDAO authDAO = new UserAuthDAO();
+	             authDAO.create(newToken);
+	            // create a cookie to store the selector and the validator
+	             Cookie cookieSelector = new Cookie("selector", selector);
+	             cookieSelector.setMaxAge(604800);
+	             cookieSelector.setHttpOnly(true);
+	              
+	             Cookie cookieValidator = new Cookie("validator", rawValidator);
+	             cookieValidator.setMaxAge(604800);
+	             cookieValidator.setHttpOnly(true);
+	             
+	             response.addCookie(cookieSelector);
+	             response.addCookie(cookieValidator);
+	                 
+	        }
+	        // show destination page
+	        mav = new ModelAndView("redirect:/userInfo");
+	        mav.addObject("name", user.getName());
 		}
-		
-		
 		return mav; 
         
 	}

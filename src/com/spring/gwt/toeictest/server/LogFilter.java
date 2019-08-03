@@ -35,9 +35,9 @@ public class LogFilter implements Filter {
  
         HttpServletRequest req = (HttpServletRequest) request;
  
-        String servletPath = req.getServletPath();
+        String URIRequest = req.getServletPath();
  
-        System.out.println("#INFO " + new Date() + " - ServletPath :" + servletPath //
+        System.out.println("#INFO " + new Date() + " - URI:" + URIRequest //
                 + ", URL =" + req.getRequestURL());
  
         // Cho phép request được đi tiếp. (Vượt qua Filter này).

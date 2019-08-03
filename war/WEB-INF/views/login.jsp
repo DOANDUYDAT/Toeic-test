@@ -115,7 +115,7 @@ body, html {
 /* Style for checkbox */
 
 /* Customize the label (the container) */
-.remember-account {
+.rememberMe {
 	display: block;
 	position: relative;
 	padding-left: 35px;
@@ -128,11 +128,11 @@ body, html {
 	user-select: none;
 }
 /* Hide the browser's default checkbox */
-.remember-account {
+.rememberMe {
 	margin-top: 2rem;
 }
 
-.remember-account input {
+.rememberMe input {
 	position: absolute;
 	opacity: 0;
 	cursor: pointer;
@@ -149,12 +149,12 @@ body, html {
 	background-color: #eee;
 }
 /* On mouse-over, add a grey background color */
-.remember-account:hover input ~ .checkmark {
+.rememberMe:hover input ~ .checkmark {
 	background-color: #ccc;
 }
 
 /* When the checkbox is checked, add a blue background */
-.remember-account input:checked ~ .checkmark {
+.rememberMe input:checked ~ .checkmark {
 	background-color: #2196F3;
 }
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -165,11 +165,11 @@ body, html {
 }
 
 /* Show the checkmark when checked */
-.remember-account input:checked ~ .checkmark:after {
+.rememberMe input:checked ~ .checkmark:after {
 	display: block;
 }
 /* Style the checkmark/indicator */
-.remember-account .checkmark:after {
+.rememberMe .checkmark:after {
 	left: 9px;
 	top: 3px;
 	width: 8px;
@@ -208,8 +208,8 @@ body, html {
 					<form:input path="password" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at 
 					least one number and one uppercase and lowercase letter, and at least 8 or more characters" />
 					<br> 
-					<label class="remember-account">Remember Me 
-						<input type="checkbox" id="remember-account" name="remember-account">
+					<label class="rememberMe">Remember Me 
+						<input type="checkbox" id="rememberMe" name="rememberMe">
 						<span class="checkmark"></span>
 					</label>
 

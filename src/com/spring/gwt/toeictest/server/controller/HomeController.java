@@ -25,6 +25,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.spring.gwt.toeictest.server.AppUtils;
+import com.spring.gwt.toeictest.server.dao.UserAuthDAO;
+import com.spring.gwt.toeictest.shared.UserAuthToken;
 
 @Controller
 public class HomeController {
@@ -42,12 +44,38 @@ public class HomeController {
 	public ModelAndView logoutPage(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		ModelAndView mav = new ModelAndView("redirect:/login");
 		mav.addObject("message", "You are log out");
-		// xoa session
-		request.getSession().invalidate();
-		//xoa cookie
-		Cookie  cookie = new Cookie("UserLogin", "");
-		cookie.setMaxAge(0);
-		response.addCookie(cookie);
+		
+//		request.getSession().removeAttribute("loggedUser");
+	    request.getSession().invalidate();
+	    Cookie[] cookies = request.getCookies();
+	     
+	    if (cookies != null) {
+	        String selector = "";
+	         
+	        for (Cookie aCookie : cookies) {
+	            if (aCookie.getName().equals("selector")) {
+	                selector = aCookie.getValue();
+	            }
+	        }
+	         
+	        if (!selector.isEmpty()) {
+	            // delete token from database
+	            UserAuthDAO authDao = new UserAuthDAO();
+	            UserAuthToken token = authDao.findBySelector(selector);
+	             
+	            if (token != null) {
+	                authDao.delete(token.getId());
+	                 
+	                Cookie cookieSelector = new Cookie("selector", "");
+	                cookieSelector.setMaxAge(0);
+	                 
+	                Cookie cookieValidator = new Cookie("validator", "");
+	                cookieValidator.setMaxAge(0);
+	                response.addCookie(cookieSelector);
+	                response.addCookie(cookieValidator);                   
+	            }
+	        }
+	    }
 		
 		return mav;
 	}
@@ -61,6 +89,10 @@ public class HomeController {
 	@GetMapping("/adminpage")
 	public String adminPage() {
 		return "adminpage";
+	}
+	@GetMapping("/accessDenied")
+	public String accessDeniedPage() {
+		return "accessDenied";
 	}
 	
 //	API

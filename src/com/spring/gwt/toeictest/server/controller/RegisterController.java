@@ -2,7 +2,6 @@ package com.spring.gwt.toeictest.server.controller;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.gwt.toeictest.server.dao.SHA512Hasher;
-import com.spring.gwt.toeictest.server.dao.UserDaoImpl;
+import com.spring.gwt.toeictest.server.dao.UserDAO;
 import com.spring.gwt.toeictest.server.security.SecurityConfig;
 import com.spring.gwt.toeictest.shared.Key;
 import com.spring.gwt.toeictest.shared.User;
@@ -37,21 +36,8 @@ public class RegisterController {
 			mav.addObject("message", result.toString());
 		}
 		
-		User userToCheck = ofy().load().type(User.class).filter("email =", user.getEmail()).first().now();
-		if (null == userToCheck) {
-			
-			SHA512Hasher encode = new SHA512Hasher();
-			String hash = encode.hash(user.getPassword(), Key.KEY_HASH);
-			
-			User newuser = new User();
-			newuser.setName(user.getName());
-			newuser.setEmail(user.getEmail());
-			newuser.setPassword(hash);
-			List<String> roles = new ArrayList<String>();
-			roles.add(SecurityConfig.ROLE_USER);
-			newuser.setRoles(roles);
-			
-			ofy().save().entity(newuser).now();
+		boolean registerToken = UserDAO.register(user);
+		if (registerToken) {
 			
 			mav = new ModelAndView("redirect:/login");
 			mav.addObject("message", "Register successfully!");
